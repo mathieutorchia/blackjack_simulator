@@ -1,10 +1,10 @@
 import random
+import pandas as pd
+import matplotlib.pyplot as plt
 
 cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
-player_cards = []
-dealer_cards = []
-player_sum = 0
-dealer_sum = 0
+results = []
+money = 0
 
 
 def getCard(person_cards):
@@ -25,6 +25,7 @@ def getCard(person_cards):
 
     return total
 
+
 def hasEleven(list):
     """Takes a list of cards as input, and return True if one of the cards is an eleven"""
     length = len(list)
@@ -34,30 +35,78 @@ def hasEleven(list):
     return False
 
 
-def startGame():
+def startGame(player_sum, dealer_sum):
+    """this takes the player and dealer sums, and then adds a card to their arrays, and returns the new sum"""
     player_sum = getCard(player_cards)
     player_sum = getCard(player_cards)
     dealer_sum = getCard(dealer_cards)
-    print(f"Dealer shows a {dealer_cards} for a total of {dealer_sum}.")
-    print(f"Player shows a {player_cards} for a total of {player_sum}.")
+    # print(f"Dealer shows a {dealer_cards} for a total of {dealer_sum}.")
+    # print(f"Player shows a {player_cards} for a total of {player_sum}.")
+    return player_sum, dealer_sum
 
 
-startGame()
-
-#################################################
-### Case 1: If dealer shows a 2, 3, 4, 5 or 6 ###
-#################################################
-
-# (1) If you have a 1 or you dont have an 11, then just hit it until you get to 12
+# simple strategy:
+# (1) if dealer has less than 7, hit until you get to 12
+# (2) if dealer has 7 or more, hit until you get to 17
 
 
+for iteration in range(0, 1000000):
+    player_cards = []
+    dealer_cards = []
+    player_sum = 0
+    dealer_sum = 0
+    result = ""
+
+    player_sum, dealer_sum = startGame(player_sum, dealer_sum)
+    player_first_cards = player_cards[0] + player_cards[1]
+    dealer_first_card = dealer_cards[0]
+
+    # Player Strategy
+    if dealer_sum <= 6:
+        while player_sum <= 11:
+            player_sum = getCard(player_cards)
+    else:
+        while player_sum <= 16:
+            player_sum = getCard(player_cards)
+
+    # Dealer Strategy
+    while dealer_sum <= 16:
+        dealer_sum = getCard(dealer_cards)
+
+    # Record Results
+    if player_sum > 21:
+        result = "L"
+    elif dealer_sum > 21:
+        result = "W"
+    elif player_sum > dealer_sum:
+        result = "W"
+    elif player_sum < dealer_sum:
+        result = "L"
+    elif player_sum == dealer_sum:
+        result = "T"
+
+    if result == "W":
+        money += 1
+    elif result == "L":
+        money -= 1
+
+    results.append([iteration, player_first_cards, dealer_first_card, result, money])
+
+df = pd.DataFrame(results, columns=['iteration','player_first_cards', 'dealer_first_card', 'result', 'money'])
+print(df)
+
+value_counts = df['result'].value_counts()
+print(value_counts)
 
 
-# (2) if you have 11, then keep hitting until you get to 19 (stop at 19)
+# plt.plot(df['iteration'], df['money'], marker = 'o', linestyle = '-')
+# plt.xlabel('Iteration')
+# plt.ylabel('Money')
+# plt.title('Plotting Money vs. Number of BlackJack Hands')
+# plt.show()
 
-#############################################
-### Case 2: If dealer shows a 7 or bigger ###
-#############################################
 
-# (1) if you have a 1 or you dont have an 11, then just hit until you get to 17
-# (2) if you have 11, then keep hitting until you get to 19 (stop at 19)
+
+percentage_w_per_card = df.groupby('dealer_first_card')['result'].apply(lambda x: (x == 'W').mean() * 100)
+print(percentage_w_per_card)
+
