@@ -40,10 +40,10 @@ def start_game(player_sum, dealer_sum):
 
 
 # Running the entire simulation
-hands = 100
+hands = 1000
 cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
 results_global = []
-trips = 100
+trips = 10000
 
 for trip in range(0, trips):
     money = 0
@@ -100,8 +100,25 @@ for trip in range(0, trips):
 
     results_global.extend(results_trip)
 
-df = pd.DataFrame(results_global,
-                  columns=['trip', 'hand', 'player_first_cards', 'dealer_first_card', 'result', 'money'])
+df = pd.DataFrame(results_global,columns=['trip', 'hand', 'player_first_cards', 'dealer_first_card', 'result', 'money'])
+df_simplified = df.groupby('trip')['money'].mean().reset_index()
+
+
+
+# plt.hist(df_simplified['money'], edgecolor = "skyblue", cumulative=False, alpha = 0.7)
+# plt.style.use('ggplot')
+# plt.xlabel("Average Profit per trip ($)")
+# plt.ylabel("Frequency")
+# plt.title(f"Distribution of profits over {hands} hands, across {trips} trips")
+# plt.axvline(df_simplified['money'].mean(), color = "red", linestyle="--", linewidth=2, label="Mean Profit")
+# plt.legend()
+# plt.grid(True, linestyle = '--', alpha = 0.5)
+#
+# plt.show()
+
+
+
+
 
 # Split the DataFrame into separate trips
 trips_data = [group[1][['hand', 'money']] for group in df.groupby('trip')]
@@ -152,3 +169,8 @@ plt.show()
 # plt.ylabel('Money')
 # plt.title('Plotting Money vs. Number of BlackJack Hands')
 # plt.show()
+
+
+
+
+
