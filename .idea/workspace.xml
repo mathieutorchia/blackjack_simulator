@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f3c4b4e-e5aa-4e13-8536-7df6b3c112c3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/blackjack.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_handling.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_old.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blackjack.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +30,10 @@
     "Python.functions.executor": "Run",
     "Python.main.executor": "Run",
     "Python.simple_strategy.executor": "Run",
+    "Python.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "run.code.analysis.last.selected.profile": "aDefault"
   }
 }]]></component>
   <component name="SharedIndexes">

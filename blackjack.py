@@ -1,6 +1,6 @@
 import random
 
-cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11,11,11,11,11,11,11]
+cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
 
 
 def get_card(person_cards):
@@ -36,9 +36,20 @@ def start_game(player_sum, dealer_sum, player_cards, dealer_cards):
     player_sum = get_card(player_cards)
     player_sum = get_card(player_cards)
     dealer_sum = get_card(dealer_cards)
+
+    if player_cards[0] == player_cards[1]:
+        equal_cards = True
+    else:
+        equal_cards = False
+
+    if player_cards[0] == 11 or player_cards[1] == 11:
+        soft_hand = True
+    else:
+        soft_hand = False
+
     # print(f"Dealer shows a {dealer_cards} for a total of {dealer_sum}.")
     # print(f"Player shows a {player_cards} for a total of {player_sum}.")
-    return player_sum, dealer_sum
+    return player_sum, dealer_sum, equal_cards, soft_hand
 
 
 def player_strategy(player_sum, dealer_sum, player_cards, strategy):
@@ -96,19 +107,20 @@ def dealer_strategy(dealer_sum, dealer_cards, strategy):
     return dealer_sum
 
 
+
 def record_result(player_sum, dealer_sum, money):
     if player_sum > 21:
         result = "L"
-        money -= 1
+        money -= 15
     elif dealer_sum > 21:
         result = "W"
-        money += 1
+        money += 15
     elif player_sum > dealer_sum:
         result = "W"
-        money += 1
+        money += 15
     elif player_sum < dealer_sum:
         result = "L"
-        money -= 1
+        money -= 15
     elif player_sum == dealer_sum:
         result = "T"
     return result, money
