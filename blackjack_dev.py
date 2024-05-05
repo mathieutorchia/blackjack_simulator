@@ -1,6 +1,6 @@
 import random
 
-cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
+cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11,8,8,8,8,8,8,8,8,8,8,8]
 
 
 def get_card(person_cards):
@@ -90,7 +90,6 @@ def player_strategy(player_sum, dealer_sum, player_cards, strategy):
 
 
 def dealer_strategy(dealer_sum, dealer_cards, strategy):
-
     eleven = has_eleven(dealer_cards)
 
     if strategy == 1:
@@ -107,25 +106,45 @@ def dealer_strategy(dealer_sum, dealer_cards, strategy):
     return dealer_sum
 
 
-
-def record_result(player_sum, dealer_sum, money_cum):
+def record_result(player_sum, dealer_sum, money_cum, money_han, i):
     if player_sum > 21:
         result = "L"
         money_cum -= 15
-        money_hand = -15
+        money_han.append(-15)
     elif dealer_sum > 21:
         result = "W"
         money_cum += 15
-        money_hand = 15
+        money_han.append(15)
     elif player_sum > dealer_sum:
         result = "W"
         money_cum += 15
-        money_hand = 15
+        money_han.append(15)
     elif player_sum < dealer_sum:
         result = "L"
         money_cum -= 15
-        money_hand = -15
+        money_han.append(-15)
     elif player_sum == dealer_sum:
         result = "T"
-        money_hand = 0
-    return result, money_cum, money_hand
+        money_han.append(0)
+    return result, money_cum, money_han[i]
+
+
+def should_split(player_list):
+    """Takes a list, and if the two first cards are equal, then TRUE"""
+    card1 = player_list[0]
+    card2 = player_list[1]
+
+    if card1 == card2 and (card1 == 8 or card1 == 11):
+        return True
+    return False
+
+
+def split_cards(player_list):
+    """Splits the player's list into two separate hands, adding a new card to each hand."""
+    # Draw a new card for each hand
+    card1 = random.choice(cards)
+    card2 = random.choice(cards)
+    # Return two separate hands with one card each
+    return [[player_list[0], card1], [player_list[1], card2]]
+
+
