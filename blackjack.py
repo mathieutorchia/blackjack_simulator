@@ -129,3 +129,8 @@ def record_result(player_sum, dealer_sum, money_cum):
         result = "T"
         money_hand = 0
     return result, money_cum, money_hand
+
+
+def split_hand(list_cards, dealer_card):
+    if list_cards[0] == list_cards[1]:
+        if list_cards[0] ==

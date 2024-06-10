@@ -4,16 +4,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from blackjack import get_card, has_eleven, start_game, player_strategy, dealer_strategy, record_result
 
-hands = 1000
+hands = 100
 results_global = []
-sessions = 1000
+sessions = 100
 line_chart = True
 histogram_chart = True
 smooth_chart = True
 p_strategy = 2
 d_strategy = 1
 
-for session in range(1,sessions+1):
+for session in range(1, sessions+1):
     money_session = 0
     results_session = []
 
@@ -82,6 +82,7 @@ if smooth_chart:
     plt.legend()
     plt.grid(True, linestyle='--', alpha=0.5)
     plt.show()
+
 
 
 

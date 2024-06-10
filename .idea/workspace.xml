@@ -5,18 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f3c4b4e-e5aa-4e13-8536-7df6b3c112c3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/blackjack_dev.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_dev.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/analysis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/combined_simulations.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_analysis.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/FirstRepo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FirstRepo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blackjack.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_handling.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blackjack_dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack_dev.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_old.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_dev.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -36,17 +47,20 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.analysis.executor": "Run",
     "Python.blackjack_dev.executor": "Run",
     "Python.data_handling.executor": "Run",
     "Python.functions.executor": "Run",
     "Python.main.executor": "Run",
     "Python.main_dev.executor": "Run",
     "Python.simple_strategy.executor": "Run",
+    "Python.simulation.executor": "Run",
     "Python.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/Applications/Everything/Personal Projects/GIT/FirstRepo",
-    "run.code.analysis.last.selected.profile": "aDefault"
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">

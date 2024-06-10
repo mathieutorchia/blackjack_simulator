@@ -1,25 +1,49 @@
 import random
+import os
 
-cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11,8,8,8,8,8,8,8,8,8,8,8]
 
+cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
 
-def get_card(person_cards):
-    """takes the persons cards (list) as input, and adds 1 card to their list, and adds the sum.
-    It will also change the value of an 11 to 1 if total > 21"""
+def get_card(person_cards, hand_number):
+    """takes the persons cards (list) as input, and adds 1 card to their list"""
     card = random.choice(cards)
-    person_cards.append(card)
+    person_cards[hand_number].append(card)
 
     total = 0
-    length = len(person_cards)
+    length = len(person_cards[hand_number])
     for i in range(0, length):
-        total += person_cards[i]
+        total += person_cards[hand_number][i]
 
     for i in range(0, length):
-        if person_cards[i] == 11 and total > 21:
-            person_cards[i] = 1
+        if person_cards[hand_number][i] == 11 and total > 21:
+            person_cards[hand_number][i] = 1
             total -= 10
 
     return total
+
+
+def start_game(example_player,example_dealer):
+    get_card(example_player, 0)
+    get_card(example_player, 0)
+    get_card(example_dealer, 0)
+    dealer_total = example_dealer[0][0]
+    # print(f"Your cards are {example_player[0]} for a total of {example_player[0][0] + example_player[0][1]}.")
+    # print(f"The dealer is showing a {example_dealer[0]} for a total of {example_dealer[0][0]}.")
+    return dealer_total
+
+
+def split(person_cards, hand_number):
+    first_card = [person_cards[hand_number][0]]
+    second_card = [person_cards[hand_number][1]]
+    person_cards.append(first_card)
+    person_cards.append(second_card)
+
+    length = len(person_cards)
+
+    get_card(person_cards,length-2)
+    get_card(person_cards,length-1)
+
+    del person_cards[hand_number]
 
 
 def has_eleven(list):
@@ -30,121 +54,140 @@ def has_eleven(list):
             return True
     return False
 
-
-def start_game(player_sum, dealer_sum, player_cards, dealer_cards):
-    """this takes the player and dealer sums/cards, and then adds a card to their arrays, and returns the new sums"""
-    player_sum = get_card(player_cards)
-    player_sum = get_card(player_cards)
-    dealer_sum = get_card(dealer_cards)
-
-    if player_cards[0] == player_cards[1]:
-        equal_cards = True
-    else:
-        equal_cards = False
-
-    if player_cards[0] == 11 or player_cards[1] == 11:
-        soft_hand = True
-    else:
-        soft_hand = False
-
-    # print(f"Dealer shows a {dealer_cards} for a total of {dealer_sum}.")
-    # print(f"Player shows a {player_cards} for a total of {player_sum}.")
-    return player_sum, dealer_sum, equal_cards, soft_hand
-
-
-def player_strategy(player_sum, dealer_sum, player_cards, strategy):
-    """Input the plauer strategy that we want to play, and it will play it. Also returns the player_sum"""
-
-    if strategy == 1.0:
-        if dealer_sum <= 6:
-            while player_sum <= 11:
-                player_sum = get_card(player_cards)
-        else:
-            while player_sum <= 16:
-                player_sum = get_card(player_cards)
-
-    elif strategy == 2.0:
-        eleven = has_eleven(player_cards)
-        if dealer_sum <= 6:
-            while player_sum <= 11:
-                player_sum = get_card(player_cards)
-                eleven = has_eleven(player_cards)
-            while eleven:
-                if player_sum <= 18:
-                    player_sum = get_card(player_cards)
-                    eleven = has_eleven(player_cards)
-                else:
-                    break
-        else:
-            while player_sum <= 16:
-                player_sum = get_card(player_cards)
-                eleven = has_eleven((player_cards))
-            while eleven:
-                if player_sum <= 18:
-                    player_sum = get_card(player_cards)
-                    eleven = has_eleven(player_cards)
-                else:
-                    break
-
-    return player_sum
-
-
 def dealer_strategy(dealer_sum, dealer_cards, strategy):
-    eleven = has_eleven(dealer_cards)
+
+    eleven = has_eleven(dealer_cards[0])
 
     if strategy == 1:
         while dealer_sum <= 16:
-            dealer_sum = get_card(dealer_cards)
+            dealer_sum = get_card(dealer_cards,0)
 
     elif strategy == 2:
         while dealer_sum <= 16:
-            dealer_sum = get_card(dealer_cards)
-            eleven = has_eleven(dealer_cards)
+            dealer_sum = get_card(dealer_cards,0)
+            eleven = has_eleven(dealer_cards[0])
         if dealer_sum == 17 and eleven:
-            dealer_sum = get_card(dealer_cards)
+            dealer_sum = get_card(dealer_cards,0)
 
     return dealer_sum
 
-
-def record_result(player_sum, dealer_sum, money_cum, money_han, i):
-    if player_sum > 21:
-        result = "L"
-        money_cum -= 15
-        money_han.append(-15)
-    elif dealer_sum > 21:
-        result = "W"
-        money_cum += 15
-        money_han.append(15)
-    elif player_sum > dealer_sum:
-        result = "W"
-        money_cum += 15
-        money_han.append(15)
-    elif player_sum < dealer_sum:
-        result = "L"
-        money_cum -= 15
-        money_han.append(-15)
-    elif player_sum == dealer_sum:
-        result = "T"
-        money_han.append(0)
-    return result, money_cum, money_han[i]
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def should_split(player_list):
-    """Takes a list, and if the two first cards are equal, then TRUE"""
-    card1 = player_list[0]
-    card2 = player_list[1]
+def strategy_split(person_cards, dealer_sum, hand_number):
+    if person_cards[hand_number][0] == person_cards[hand_number][1]:
+        if person_cards[hand_number][0] == 9 and dealer_sum in (2,3,4,5,6,8,9):
+            return "yes"
+        elif person_cards[hand_number][0] == 8:
+            return "yes"
+        elif person_cards[hand_number][0] == 7 and dealer_sum in (2,3,4,5,6,7):
+            return "yes"
+        elif person_cards[hand_number][0] == 6 and dealer_sum in (3,4,5,6):
+            return "yes"
+        elif person_cards[hand_number][0] == 4 and dealer_sum in (5,6):
+            return "yes"
+        elif person_cards[hand_number][0] == 3 and dealer_sum in (4,5,6,7):
+            return "yes"
+        elif person_cards[hand_number][0] == 2 and dealer_sum in (4,5,6,7):
+            return "yes"
+        else:
+            return "no"
+    elif person_cards[hand_number][0] == 1 and person_cards[hand_number][1] == 11:
+        person_cards[hand_number][0] = 11
+        return "once"
+    else:
+        return "no"
 
-    if card1 == card2 and (card1 == 8 or card1 == 11):
-        return True
-    return False
+def strategy_normal(person_cards, player_sum, dealer_sum, hand_number):
+
+    eleven = has_eleven(person_cards[hand_number])
+
+    # this forces players to stop taking cards after they split aces
+    if len(person_cards) == 2 and person_cards[hand_number][0] == 11:
+        return "stand"
+
+    elif eleven:
+        if player_sum[hand_number] in (13,14) and dealer_sum in (2,3,4,7,8,9,10,11):
+            return "hit"
+        elif player_sum[hand_number] in (13,14) and dealer_sum in (5,6) and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] in (13,14) and dealer_sum in (5,6) and len(person_cards[hand_number]) >2:
+            return "hit"
+        elif player_sum[hand_number] in (15,16) and dealer_sum in (2,3,7,8,9,10,11):
+            return "hit"
+        elif player_sum[hand_number] in (15,16) and dealer_sum in (4,5,6) and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] in (15, 16) and dealer_sum in (4, 5, 6) and len(person_cards[hand_number]) > 2:
+            return "hit"
+        elif player_sum[hand_number] == 17 and dealer_sum in (2,7,8,9,10,11):
+            return "hit"
+        elif player_sum[hand_number] == 17 and dealer_sum in (3,4,5,6) and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] == 17 and dealer_sum in (3,4,5,6) and len(person_cards[hand_number]) > 2:
+            return "hit"
+        elif player_sum[hand_number] == 18 and dealer_sum in (2,3,4,5,6) and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] == 18 and dealer_sum in (2,3,4,5,6) and len(person_cards[hand_number]) > 2:
+            return "hit"
+        elif player_sum[hand_number] == 18 and dealer_sum in (7,8):
+            return "stand"
+        elif player_sum[hand_number] == 18 and dealer_sum in (9,10,11):
+            return "hit"
+        elif player_sum[hand_number] == 19 and dealer_sum in (2,3,4,5,7,8,9,10,11):
+            return "stand"
+        elif player_sum[hand_number] == 19 and dealer_sum == 6 and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] == 19 and dealer_sum == 6 and len(person_cards[hand_number]) > 2:
+            return "hit"
+        elif player_sum[hand_number] in (20,21):
+            return "stand"
+    else:
+        if player_sum[hand_number] in (4,5,6,7,8):
+            return "hit"
+        elif player_sum[hand_number] == 9 and dealer_sum in (2,7,8,9,10,11):
+            return "hit"
+        elif player_sum[hand_number] == 9 and dealer_sum in (3,4,5,6) and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] == 9 and dealer_sum in (3,4,5,6) and len(person_cards[hand_number]) > 2:
+            return "hit"
+        elif player_sum[hand_number] == 10 and dealer_sum in (2,3,4,5,6,7,8,9) and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] == 10 and dealer_sum in (2,3,4,5,6,7,8,9) and len(person_cards[hand_number]) > 2:
+            return "hit"
+        elif player_sum[hand_number] == 10 and dealer_sum in (10, 11):
+            return "hit"
+        elif player_sum[hand_number] == 11 and len(person_cards[hand_number]) == 2:
+            return "double"
+        elif player_sum[hand_number] == 11 and len(person_cards[hand_number]) > 2:
+            return "hit"
+        elif player_sum[hand_number] == 12 and dealer_sum in (2,3,7,8,9,10,11):
+            return "hit"
+        elif player_sum[hand_number] == 12 and dealer_sum in (4,5,6):
+            return "stand"
+        elif player_sum[hand_number] in (13,14,15,16) and dealer_sum in (2,3,4,5,6):
+            return "stand"
+        elif player_sum[hand_number] in (13,14,15,16) and dealer_sum in (7,8,9,10,11):
+            return "hit"
+        elif player_sum[hand_number] == 17:
+            return "stand"
+        elif player_sum[hand_number] in (18,19,20,21):
+            return "stand"
 
 
-def split_cards(player_list):
-    """Splits the player's list into two separate hands, adding a new card to each hand."""
-    # Draw a new card for each hand
-    card1 = random.choice(cards)
-    card2 = random.choice(cards)
-    # Return two separate hands with one card each
-    return [[player_list[0], card1], [player_list[1], card2]]
-
+def data_money(row):
+    if row['last_action'] == "double" and row['result'] == "W":
+        return 20
+    elif row['last_action'] == "double" and row['result'] == "L":
+        return -20
+    elif row['data_split'] == True and row['hand_sum_start'] == 21 and row['result'] == "W":
+        return 10
+    elif row['hand_sum_start'] == 21 and row['result'] == "W":
+        return 15
+    elif row['result'] == "W":
+        return 10
+    elif row['result'] == "L":
+        return -10
+    else:
+        return 0
 
