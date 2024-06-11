@@ -1,4 +1,4 @@
 # FirstRepo
 
-## Hello we did it!
-Writing something else to see what happens
+##Blackjack Simulator
+In this code, I am creating a blackjack simulator and running it hundreds of thousands of times to reveal the true casino edge.
