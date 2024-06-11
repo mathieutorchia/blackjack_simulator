@@ -32,7 +32,7 @@ def run_simulations(num_simulations, num_meta_simulations):
 
 
 if __name__ == "__main__":
-    num_simulations = 100000
+    num_simulations = 100
     num_meta_simulations = 100
     combined_df = run_simulations(num_simulations, num_meta_simulations)
     combined_df['cumulative_money'] = combined_df.groupby('meta_simulation_number')['money'].cumsum()

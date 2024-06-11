@@ -23,6 +23,8 @@ def get_card(person_cards, hand_number):
 
 
 def start_game(example_player,example_dealer):
+    """takes the player and the dealer cards as input, and give the player 2 cards and the dealer 1. Also return the
+    total of the dealer's card"""
     get_card(example_player, 0)
     get_card(example_player, 0)
     get_card(example_dealer, 0)
@@ -33,6 +35,8 @@ def start_game(example_player,example_dealer):
 
 
 def split(person_cards, hand_number):
+    """takes the persons cards and the hand number as inputs, and creates two seperate hands using the 2 cards from the
+    initial hand"""
     first_card = [person_cards[hand_number][0]]
     second_card = [person_cards[hand_number][1]]
     person_cards.append(first_card)
@@ -55,6 +59,7 @@ def has_eleven(list):
     return False
 
 def dealer_strategy(dealer_sum, dealer_cards, strategy):
+    """modelling the dealer strategy"""
 
     eleven = has_eleven(dealer_cards[0])
 
@@ -76,6 +81,7 @@ def clear_terminal():
 
 
 def strategy_split(person_cards, dealer_sum, hand_number):
+    """models the splitting strategy"""
     if person_cards[hand_number][0] == person_cards[hand_number][1]:
         if person_cards[hand_number][0] == 9 and dealer_sum in (2,3,4,5,6,8,9):
             return "yes"
@@ -100,7 +106,7 @@ def strategy_split(person_cards, dealer_sum, hand_number):
         return "no"
 
 def strategy_normal(person_cards, player_sum, dealer_sum, hand_number):
-
+    """modelling the optimal player strategy"""
     eleven = has_eleven(person_cards[hand_number])
 
     # this forces players to stop taking cards after they split aces
@@ -176,6 +182,7 @@ def strategy_normal(person_cards, player_sum, dealer_sum, hand_number):
 
 
 def data_money(row):
+    """recording the monetary outcome of a hand"""
     if row['last_action'] == "double" and row['result'] == "W":
         return 20
     elif row['last_action'] == "double" and row['result'] == "L":
