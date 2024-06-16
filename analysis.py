@@ -4,10 +4,10 @@ import seaborn as sns
 
 
 # Input your own file path to your files
-file_path_combined_1 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/combined_data.csv"
-file_path_simplified_1 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/simplified_data.csv"
-file_path_combined_2 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/combined_data_2.csv"
-file_path_simplified_2 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/simplified_data_2.csv"
+file_path_combined_1 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/CSV Files/combined_data.csv"
+file_path_simplified_1 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/CSV Files/simplified_data.csv"
+file_path_combined_2 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/CSV Files/combined_data_2.csv"
+file_path_simplified_2 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/CSV Files/simplified_data_2.csv"
 
 df_total_1 = pd.read_csv(file_path_combined_1)
 df_simplified_1 = pd.read_csv(file_path_simplified_1)
