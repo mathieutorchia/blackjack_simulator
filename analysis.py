@@ -2,11 +2,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
+# Input your own file path to your files
 file_path_combined_1 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/combined_data.csv"
 file_path_simplified_1 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/simplified_data.csv"
 file_path_combined_2 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/combined_data_2.csv"
 file_path_simplified_2 = "/Applications/Everything/Personal Projects/GIT/FirstRepo/simplified_data_2.csv"
-
 
 df_total_1 = pd.read_csv(file_path_combined_1)
 df_simplified_1 = pd.read_csv(file_path_simplified_1)
@@ -61,8 +62,10 @@ if smooth_chart:
     plt.xlim(-4, 4)
     plt.show()
 
+##########################
+#### For Simulation 1 ####
+##########################
 
-# print(df_total_1.describe())
 # print(df_total_1['result'].value_counts())
 #
 # print((df_simplified_1['money'] > 0).sum())
@@ -86,26 +89,32 @@ if smooth_chart:
 # print(average_win)
 # print(average_loss)
 
-print(df_total_2.describe())
+
+##########################
+#### For Simulation 2 ####
+##########################
+
+# This shows how many wins, loses, and ties there were
 print(df_total_2['result'].value_counts())
 
-print((df_simplified_2['money'] > 0).sum())
-print((df_simplified_2['money'] < 0).sum())
-print((df_simplified_2['money'] == 0).sum())
+# This shows how many people ended up making a profit, or booking a loss
+print(f"There were {(df_simplified_2['money'] > 0).sum()} people who made a profit.")
+print(f"There were {(df_simplified_2['money'] < 0).sum()} people who booked a loss.")
+print(f"There were {(df_simplified_2['money'] == 0).sum()} people who broke even.")
 
+# This calculates the average profit when a person ended up profitable, and the average loss when a person was negative
 count_profitable = (df_simplified_2['money'] > 0).sum()
 count_loss = (df_simplified_2['money'] < 0).sum()
-
 average_profit = df_simplified_2.loc[df_simplified_2['money'] > 0, 'money'].mean()
 average_loss = df_simplified_2.loc[df_simplified_2['money'] < 0, 'money'].mean()
-
 print(f'There are {count_profitable} people who made a profit, with an average profit of {average_profit}.')
 print(f'There are {count_loss} people who booked a loss, with an average loss of {average_loss}.')
 
-print(df_simplified_2['money'].mean())
+# This is the average profit per hand (or loss)
+print(f"The average profit (or loss) per hand is: {df_simplified_2['money'].mean()}.")
 
-
-average_win =  df_total_2.loc[df_total_2['result'] == "W", 'money'].mean()
+# This calculates the average monetary win when you win a hand, and the average monetary loss when you lose a hand
+average_win = df_total_2.loc[df_total_2['result'] == "W", 'money'].mean()
 average_loss = df_total_2.loc[df_total_2['result'] == "L", 'money'].mean()
-print(average_win)
-print(average_loss)
+print(f"The average win when you win a hand is {average_win}.")
+print(f"The average loss when you lose a hand is {average_loss}.")

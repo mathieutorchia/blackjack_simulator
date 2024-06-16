@@ -1,6 +1,6 @@
-# simulation.py
+# blackjack_multiple_simulations.py
 import pandas as pd
-from main_dev import run_blackjack_simulation
+from blackjack_simulation import run_blackjack_simulation
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -32,8 +32,8 @@ def run_simulations(num_simulations, num_meta_simulations):
 
 
 if __name__ == "__main__":
-    num_simulations = 100
-    num_meta_simulations = 100
+    num_simulations = 10
+    num_meta_simulations = 10
     combined_df = run_simulations(num_simulations, num_meta_simulations)
     combined_df['cumulative_money'] = combined_df.groupby('meta_simulation_number')['money'].cumsum()
 
@@ -84,15 +84,5 @@ if __name__ == "__main__":
         plt.grid(True, linestyle='--', alpha=0.5)
         plt.xlim(-4, 4)
         plt.show()
-
-
-    #
-    # # Now combined_df is ready for analysis
-    # # Example of an analysis: print the first few rows
-    # print(combined_df.head())
-    #
-    # # You can add any other analyses here, for example:
-    # print(combined_df.describe())
-    # print(combined_df['result'].value_counts())
 
 

@@ -76,9 +76,6 @@ def dealer_strategy(dealer_sum, dealer_cards, strategy):
 
     return dealer_sum
 
-def clear_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
 
 def strategy_split(person_cards, dealer_sum, hand_number):
     """models the splitting strategy"""

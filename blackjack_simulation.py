@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from blackjack_dev import (get_card,start_game, split, dealer_strategy, has_eleven, clear_terminal,
-                           strategy_split, strategy_normal, data_money)
+from blackjack_functions import (get_card, start_game, split, dealer_strategy, has_eleven,
+                                 strategy_split, strategy_normal, data_money)
 
 def run_blackjack_simulation():
 
@@ -132,12 +132,4 @@ if __name__ == "__main__":
     pd.set_option('display.width', None)  # Adjust the width to prevent line breaks
     print(df)
 
-
-
-
-    # print(f"Your cards are: {example_player}.")
-    # print(f"Your sums are: {hand_sums}.")
-    # print(f"The dealer had: {example_dealer}, which is a total of {dealer_sum}.")
-    # print(f"The player split: {data_split}.")
-    # print(f"The final result: {data_result}")
 
