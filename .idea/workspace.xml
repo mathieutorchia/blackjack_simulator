@@ -39,6 +39,7 @@
   &quot;keyToString&quot;: {
     &quot;Python.analysis.executor&quot;: &quot;Run&quot;,
     &quot;Python.blackjack_dev.executor&quot;: &quot;Run&quot;,
+    &quot;Python.blackjack_multiple_simulations.executor&quot;: &quot;Run&quot;,
     &quot;Python.data_handling.executor&quot;: &quot;Run&quot;,
     &quot;Python.functions.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
